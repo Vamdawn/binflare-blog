@@ -1,23 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import matter from 'gray-matter';
+import { readValidatedPosts } from './posts.mjs';
 import { buildSitemapXml } from './sitemap-utils.mjs';
 
 export const collectPublishedPostSlugs = (postsDir) =>
-  fs
-    .readdirSync(postsDir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
-    .flatMap((entry) => {
-      const filePath = path.join(postsDir, entry.name);
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      const parsed = matter(raw);
-
-      if (parsed.data?.draft === true) {
-        return [];
-      }
-
-      return [entry.name.replace(/\.md$/, '')];
-    });
+  readValidatedPosts(postsDir)
+    .filter((post) => !post.meta.draft)
+    .map((post) => post.meta.slug)
+    .sort((a, b) => a.localeCompare(b));
 
 if (process.env.VITEST !== 'true') {
   const cwd = process.cwd();
