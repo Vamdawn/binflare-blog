@@ -1,0 +1,33 @@
+import { PostCard } from '../components/PostCard';
+import { SeoHead } from '../components/SeoHead';
+import { SiteLayout } from '../components/SiteLayout';
+import { getPosts } from '../lib/posts/source';
+
+const excerptFromContent = (content: string): string => {
+  const plain = content.replace(/\s+/g, ' ').trim();
+  return plain.length <= 120 ? plain : `${plain.slice(0, 120)}...`;
+};
+
+export function PostListPage() {
+  const posts = getPosts();
+
+  return (
+    <SiteLayout>
+      <SeoHead title="文章列表 | Binflare Blog" description="Binflare Blog 全部文章列表" />
+      <section>
+        <h2>文章列表</h2>
+        <div className="post-list">
+          {posts.map((post) => (
+            <PostCard
+              key={post.meta.slug}
+              slug={post.meta.slug}
+              title={post.meta.title}
+              date={post.meta.date}
+              summary={post.meta.summary ?? excerptFromContent(post.content)}
+            />
+          ))}
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}
