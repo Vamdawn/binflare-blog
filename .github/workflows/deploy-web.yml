@@ -70,6 +70,7 @@ jobs:
           scp -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"
           scp -P "$DEPLOY_PORT" scripts/deploy/promote-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/promote-release.sh"
           scp -P "$DEPLOY_PORT" scripts/deploy/prune-releases.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/prune-releases.sh"
+          scp -P "$DEPLOY_PORT" scripts/deploy/rollback-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/rollback-release.sh"
 
       - name: Extract and promote release
         run: |
@@ -77,10 +78,37 @@ jobs:
           set -euo pipefail
           RELEASE_DIR="$DEPLOY_ROOT/releases/$RELEASE_ID"
           REMOTE_SCRIPT_DIR="$RELEASE_DIR/scripts/deploy"
+          PREVIOUS_RELEASE_ID=""
+          HEALTHCHECK_BASE_URL="http://127.0.0.1"
+
+          if [[ -L "$DEPLOY_ROOT/current" ]]; then
+            PREVIOUS_RELEASE_ID="\$(basename "\$(readlink "$DEPLOY_ROOT/current")")"
+          fi
+
+          healthcheck() {
+            for path in / /posts/hello-world /404; do
+              curl --fail --silent --show-error "\$HEALTHCHECK_BASE_URL\$path" > /dev/null
+            done
+          }
+
           cd "$RELEASE_DIR"
           tar -xzf web-dist.tgz
           rm -f web-dist.tgz
-          chmod +x "$REMOTE_SCRIPT_DIR/promote-release.sh" "$REMOTE_SCRIPT_DIR/prune-releases.sh"
+          chmod +x "$REMOTE_SCRIPT_DIR/promote-release.sh" "$REMOTE_SCRIPT_DIR/prune-releases.sh" "$REMOTE_SCRIPT_DIR/rollback-release.sh"
           bash "$REMOTE_SCRIPT_DIR/promote-release.sh" "$DEPLOY_ROOT" "$RELEASE_ID"
-          bash "$REMOTE_SCRIPT_DIR/prune-releases.sh" "$DEPLOY_ROOT/releases"
+
+          if healthcheck; then
+            bash "$REMOTE_SCRIPT_DIR/prune-releases.sh" "$DEPLOY_ROOT/releases"
+            exit 0
+          fi
+
+          echo "healthcheck failed after promote, start rollback" >&2
+          if [[ -z "\$PREVIOUS_RELEASE_ID" ]]; then
+            echo "previous release id is empty, skip rollback" >&2
+            exit 1
+          fi
+
+          bash "$REMOTE_SCRIPT_DIR/rollback-release.sh" "$DEPLOY_ROOT" "\$PREVIOUS_RELEASE_ID"
+          curl --fail --silent --show-error "\$HEALTHCHECK_BASE_URL/" > /dev/null
+          exit 1
           EOF
