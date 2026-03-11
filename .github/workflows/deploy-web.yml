@@ -1,0 +1,86 @@
+name: Deploy Web
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/web/**
+      - packages/**
+      - pnpm-lock.yaml
+      - package.json
+      - pnpm-workspace.yaml
+      - .github/workflows/deploy-web.yml
+      - scripts/deploy/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_USER: deploy
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+      SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_ROOT: /var/www/binflare-blog
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build web
+        run: pnpm --filter web build
+
+      - name: Pack dist
+        run: tar -czf web-dist.tgz -C apps/web/dist .
+
+      - name: Generate release id
+        run: echo "RELEASE_ID=$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload release package and deploy scripts
+        run: |
+          RELEASE_DIR="$DEPLOY_ROOT/releases/$RELEASE_ID"
+          REMOTE_SCRIPT_DIR="$RELEASE_DIR/scripts/deploy"
+          ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p \"$RELEASE_DIR\" \"$REMOTE_SCRIPT_DIR\" \"$DEPLOY_ROOT/shared\""
+          scp -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"
+          scp -P "$DEPLOY_PORT" scripts/deploy/promote-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/promote-release.sh"
+          scp -P "$DEPLOY_PORT" scripts/deploy/prune-releases.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/prune-releases.sh"
+
+      - name: Extract and promote release
+        run: |
+          ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" <<EOF
+          set -euo pipefail
+          RELEASE_DIR="$DEPLOY_ROOT/releases/$RELEASE_ID"
+          REMOTE_SCRIPT_DIR="$RELEASE_DIR/scripts/deploy"
+          cd "$RELEASE_DIR"
+          tar -xzf web-dist.tgz
+          rm -f web-dist.tgz
+          chmod +x "$REMOTE_SCRIPT_DIR/promote-release.sh" "$REMOTE_SCRIPT_DIR/prune-releases.sh"
+          bash "$REMOTE_SCRIPT_DIR/promote-release.sh" "$DEPLOY_ROOT" "$RELEASE_ID"
+          bash "$REMOTE_SCRIPT_DIR/prune-releases.sh" "$DEPLOY_ROOT/releases"
+          EOF
