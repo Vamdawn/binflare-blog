@@ -76,7 +76,7 @@ jobs:
 
       - name: Extract and promote release
         run: |
-          ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" <<EOF
+          ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" "DEPLOY_ROOT='$DEPLOY_ROOT' RELEASE_ID='$RELEASE_ID' bash -se" <<'EOF'
           set -euo pipefail
           RELEASE_DIR="$DEPLOY_ROOT/releases/$RELEASE_ID"
           REMOTE_SCRIPT_DIR="$RELEASE_DIR/scripts/deploy"
@@ -84,12 +84,12 @@ jobs:
           HEALTHCHECK_BASE_URL="http://127.0.0.1"
 
           if [[ -L "$DEPLOY_ROOT/current" ]]; then
-            PREVIOUS_RELEASE_ID="\$(basename "\$(readlink "$DEPLOY_ROOT/current")")"
+            PREVIOUS_RELEASE_ID="$(basename "$(readlink "$DEPLOY_ROOT/current")")"
           fi
 
           healthcheck() {
             for path in / /posts/hello-world /404; do
-              curl --fail --silent --show-error "\$HEALTHCHECK_BASE_URL\$path" > /dev/null
+              curl --fail --silent --show-error "$HEALTHCHECK_BASE_URL$path" > /dev/null
             done
           }
 
@@ -106,12 +106,12 @@ jobs:
           fi
 
           echo "healthcheck failed after promote, start rollback" >&2
-          if [[ -z "\$PREVIOUS_RELEASE_ID" ]]; then
+          if [[ -z "$PREVIOUS_RELEASE_ID" ]]; then
             echo "previous release id is empty, skip rollback" >&2
             exit 1
           fi
 
-          bash "$REMOTE_SCRIPT_DIR/rollback-release.sh" "$DEPLOY_ROOT" "\$PREVIOUS_RELEASE_ID"
-          curl --fail --silent --show-error "\$HEALTHCHECK_BASE_URL/" > /dev/null
+          bash "$REMOTE_SCRIPT_DIR/rollback-release.sh" "$DEPLOY_ROOT" "$PREVIOUS_RELEASE_ID"
+          curl --fail --silent --show-error "$HEALTHCHECK_BASE_URL/" > /dev/null
           exit 1
           EOF

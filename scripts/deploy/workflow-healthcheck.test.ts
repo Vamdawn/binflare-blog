@@ -10,10 +10,10 @@ describe('deploy-web workflow healthcheck', () => {
 
     const requiredSnippets = [
       'for path in / /posts/hello-world /404; do',
-      'curl --fail --silent --show-error "\\$HEALTHCHECK_BASE_URL\\$path" > /dev/null',
+      'curl --fail --silent --show-error "$HEALTHCHECK_BASE_URL$path" > /dev/null',
       'scripts/deploy/rollback-release.sh',
-      'bash "$REMOTE_SCRIPT_DIR/rollback-release.sh" "$DEPLOY_ROOT" "\\$PREVIOUS_RELEASE_ID"',
-      'curl --fail --silent --show-error "\\$HEALTHCHECK_BASE_URL/" > /dev/null',
+      'bash "$REMOTE_SCRIPT_DIR/rollback-release.sh" "$DEPLOY_ROOT" "$PREVIOUS_RELEASE_ID"',
+      'curl --fail --silent --show-error "$HEALTHCHECK_BASE_URL/" > /dev/null',
     ];
 
     for (const snippet of requiredSnippets) {
