@@ -93,6 +93,7 @@ jobs:
             done
           }
 
+          ls -la "$RELEASE_DIR/"
           cd "$RELEASE_DIR"
           tar -xzf web-dist.tgz
           rm -f web-dist.tgz
