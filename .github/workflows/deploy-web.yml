@@ -68,7 +68,7 @@ jobs:
           RELEASE_DIR="$DEPLOY_ROOT/releases/$RELEASE_ID"
           REMOTE_SCRIPT_DIR="$RELEASE_DIR/scripts/deploy"
           ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p \"$RELEASE_DIR\" \"$REMOTE_SCRIPT_DIR\" \"$DEPLOY_ROOT/shared\""
-          scp -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"
+          scp -v -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"
           scp -P "$DEPLOY_PORT" scripts/deploy/promote-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/promote-release.sh"
           scp -P "$DEPLOY_PORT" scripts/deploy/prune-releases.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/prune-releases.sh"
           scp -P "$DEPLOY_PORT" scripts/deploy/rollback-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/rollback-release.sh"

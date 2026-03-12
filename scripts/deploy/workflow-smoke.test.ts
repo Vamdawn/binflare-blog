@@ -25,7 +25,7 @@ describe('deploy-web workflow smoke', () => {
       'pnpm test',
       'pnpm --filter web build',
       'tar -czf web-dist.tgz -C apps/web/dist .',
-      'scp -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"',
+      'scp -v -P "$DEPLOY_PORT" web-dist.tgz "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE_DIR/web-dist.tgz"',
       'bash "$REMOTE_SCRIPT_DIR/promote-release.sh" "$DEPLOY_ROOT" "$RELEASE_ID"',
       'bash "$REMOTE_SCRIPT_DIR/prune-releases.sh" "$DEPLOY_ROOT/releases"',
       'DEPLOY_USER: deploy',
