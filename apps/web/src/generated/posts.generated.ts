@@ -6,6 +6,125 @@ import type { Post } from '../lib/posts/types';
 export const generatedPosts: Post[] = [
   {
     meta: {
+      title: 'AI时代的工程师何去何从？',
+      date: '2026-03-12',
+      summary:
+        '从焦虑与迷茫出发，讨论在 AI 时代工程师应聚焦的稳定能力：Harness Engineering、自动反馈循环与可复利资产管理。',
+      draft: false,
+      slug: 'ai-era-engineer-future',
+    },
+    content:
+      '## 前言\n' +
+      '\n' +
+      '在过去的这一个多月里，我的心态经历了剧烈的起伏。起初，我熟练运用多 Agent 并行，享受着生产力倍增的狂喜，一度感觉自己无所不能。但紧接着，一种强烈的危机感袭来——我意识到自己过去所掌握的一切，都可能被新技术取代。在新知识如井喷般涌现的当下，我陷入了深深的迷茫，找不到自己的准确位置。\n' +
+      '\n' +
+      '为了不被时代抛下，也为了探寻未来的方向，我阅读了大量的文章。虽然前路依然有些模糊，但一些事情，正逐渐变得清晰起来。\n' +
+      '\n' +
+      '## 我们不需要造火箭\n' +
+      '\n' +
+      'AI 正在大幅降低编程的门槛。以往只有工程师掌握的技能，现在可以被更多人低成本地获取。这无疑带来了紧迫感，让我们渴望做出一些与众不同的事情，以此证明自我价值。然而，最具开创性的工作往往被前沿公司包揽，社区里的优秀想法（如计划模式、记忆系统等）也会被迅速吸收进产品内部。这便是我过去几周的困扰所在：当下，做什么才是有意义且不会被替代的？\n' +
+      '\n' +
+      '最近读到的文章 “How To Be A World-Class Agentic Engineer“ 给了我很大的启发。文章指出，我们应该去掌握那些在模型代际变化下依然稳定的工程原则。尽管 AI 带来了信心膨胀与紧迫压力，但我们并不需要去“造火箭”，无需做出颠覆性的技术飞跃。相反，我们更应基于这些稳定的工程原则，在当下做出适合自己与团队的实践。\n' +
+      '\n' +
+      '这是否意味着甘于平庸？回想没有 AI 的时代，前沿的工程团队在做什么？基础框架（Spring、React）、基础设施（Kafka、Redis）…… 各行各业的人们各司其职，这一点从未改变。因此，我们也不必焦虑。正如 Boris 在采访中所说，保持“新手心态”，不断尝试，不断学习。\n' +
+      '\n' +
+      '## Harness Engineering\n' +
+      '\n' +
+      '前面谈了认知上的转变，那么回到当下，什么方向值得我们付诸实践？OpenAI 在 2 月 11 日发布的文章“Harness Engineering”描绘了一条路径：工程师将不再主要编写代码，而是构建一个“环境 + 规则 + 反馈系统”，让 AI Agent 能够可靠地完成工程任务。\n' +
+      '\n' +
+      '为了让这个概念更清晰，我把 OpenAI 的原文给到 GPT，它给出了如下定义：\n' +
+      '```markdown\n' +
+      '**“AI 的工作环境与控制系统”**\n' +
+      '\n' +
+      '包括：\n' +
+      '\n' +
+      'Agent Harness  \n' +
+      '│  \n' +
+      '├─ 任务定义（Prompt / Spec）  \n' +
+      '├─ 仓库结构  \n' +
+      '├─ 工具链  \n' +
+      '├─ 测试系统  \n' +
+      '├─ 反馈循环  \n' +
+      '├─ 代码规范  \n' +
+      '└─ 自动 review\n' +
+      '\n' +
+      '这个系统的目标：\n' +
+      '\n' +
+      '> **让 AI 可以自主完成软件工程流程。**\n' +
+      '```\n' +
+      '\n' +
+      '也就是说，任何能够帮助 Agent 自主可靠地完成工作的手段，都可以被称为“Harness”。在这个思路下，传统的手段（架构知识、Lint、UnitTest）与专为 Agent 设计的手段（Agent对抗、知识库）都大有用武之地。这就像经典的瑞士奶酪模型，Harness Engineering 正是为 AI 系统增加多层防护，从而避免“漏洞对齐”。\n' +
+      '\n' +
+      '## 反馈循环\n' +
+      '\n' +
+      '**自动反馈循环（Automatic Feedback Loop）** 在 Harness Engineering 中是系统可靠性的核心机制。AI 编程有几个特点：输出不稳定、容易犯小错误、一次生成很少完全正确。以往我们与 AI 协作的方式是：\n' +
+      '\n' +
+      '```plaintext\n' +
+      'AI写代码 → 人工CR/调试\n' +
+      '```\n' +
+      '\n' +
+      '而 Harness Engineering 的目标是将其转变为：\n' +
+      '\n' +
+      '```plaintext\n' +
+      'AI写代码 → 自动发现问题 → AI修复\n' +
+      '```\n' +
+      '\n' +
+      '那么，如何落地？\n' +
+      '\n' +
+      '其实代码一直有反馈回路：编译控制语法层、Linter控制风格层、测试套件控制行为层。我们可以在沿着这个思路继续强化反馈回路：自动化测试、Agent 对抗 CR.....\n' +
+      '\n' +
+      '这种反馈回路其实也能能找到工程化的理论，如”Harness Engineering Is Cybernetics“文章所说，闭合反馈回路正是**控制论（Cybernetics）** 的落地实践，历史上也层有过类似的模式：\n' +
+      '\n' +
+      '| 时代                        | 传感器+执行器                |\n' +
+      '| :------------------------ | :--------------------- |\n' +
+      '| 1780s Watt 调速器            | 离心飞球机构感知转速并自动调节阀门      |\n' +
+      '| 2010s Kubernetes          | Controller 感知实际状态并自动协调 |\n' +
+      '| 2020s Harness Engineering | LLM 感知架构质量并自动编写代码      |\n' +
+      '\n' +
+      '他将感知架构质量比作传感器，将自动编写代码比作执行器。那么在没有传感器，也没有执行器的层面（例如：“这个改动是否符合业务架构”？），或许仍然需要人类在那个层面同时进行感知和行动。\n' +
+      '\n' +
+      '## 重视并善用你的资产\n' +
+      '\n' +
+      '自从 Anthropic 推出 Skills 功能以来，其热度迅速攀升。在 AI 创造成本如此之低的背景下，几乎每个人都在创作自己的 Skills。但重度用户都知道，创作一个稳定且好用的 Skill 需要深厚的领域知识以及反复的调试（这也是为什么很多人使用 superpowers）。因此，无论是收集的开源 Skills，还是自己打磨创造的 Skills，都是重要的资产。无论是个人还是团队，都需要重视并加以管理。\n' +
+      '\n' +
+      '从 Skills 这个角度展开来看，像规则（rules）、提示词、工具、工作流等，其实都是可以持续积累并产生复利的资产。我们不必一开始就追求解决多大的问题，也无需把它们打磨到极致，只要能解决某个层面的具体问题，就值得纳入管理。关键在于，在早期阶段就建立起对资产的识别和维护意识，而不是等到需要了才开始积累。\n' +
+      '\n' +
+      '举个简单的例子，目前使用的 Claude Code 没有开通 Fetch 工具的能力，但由于模型后训练或官方提示词的原因，它更倾向于优先使用 Fetch 来获取网页信息，因此使用时经常会反复获取失败，既浪费时间又浪费 Token。但几个月前开源社区提供了 AI 友好型浏览器（agent-browser / playwright-cli）之后，只需增加以下两个配置，就再也不会被这个问题困扰：\n' +
+      '\n' +
+      '- 在用户提示词（CLAUDE.md）中增加使用偏好（例如使用开源的 AI 友好型浏览器 agent-browser / playwright-cli）；\n' +
+      '- 在用户配置（~/.claude/.settings.json）中禁用（deny配置）Fetch 工具；\n' +
+      '\n' +
+      '世界正在飞速发展。每当模型能力更新，旧的方案可能就会失效。而且由于上下文的限制，规则、MCP、Skills 并非越多越好。\n' +
+      '\n' +
+      'Anthropic 工程师的文章分享了构建 Claude Code 工具过程的经验，其中一个核心观点是“给模型适合其能力水平的工具”。例如，最初 Claude Code 使用 TodoWrite 工具来确保按任务执行，但对于 Opus 4.5 来说，这反而成了一种约束，限制了它协调多个 subagent 发挥的能力。\n' +
+      '\n' +
+      'Boris 在采访中提到一点：在旧模型上有效的一套方法，换到新模型可能就不再有效；而以前在旧模型上不行的东西，到新模型上反而能行。这虽然有些反直觉，但正是模型快速迭代的现状。\n' +
+      '\n' +
+      '因此，我们需要定期审查并清理你的资产，只使用当下真正能够解决问题的工具，遵循“少即是多（less is more）”的原则。\n' +
+      '\n' +
+      '## 向前看\n' +
+      '\n' +
+      '在大模型能力飞速迭代的当下，我们不禁开始思考：未来的工作流程究竟会演变成什么模样？从短期来看，人依然会在产品流程的各个环节中扮演关键角色。目前的主流工作方式，大多是将人与Agent串联起来，以协作的方式共同解决特定层面的问题。那么，这种协作的形态究竟会是怎样的？未来会不会出现一个功能强大的一站式工作台，让所有人都汇集在同一平台上完成工作？\n' +
+      '\n' +
+      '我个人认为，短期内这种设想恐怕不太现实。工程师本就是个性最为鲜明的群体之一，即使在功能强大的现代IDE不断涌现的今天，vim依然拥有大批忠实拥趸；同样地，面对AI辅助工具，有人热衷于Claude Code，也有人更习惯使用Codex。真正能够快速融入工作流的，往往是那些足够通用的底层能力，比如将公司的DevOps能力开放给AI调用，或提供可被便捷调用的接口，又或是把品牌设计知识封装为“技能”，确保后续产品设计不会偏离方向。\n' +
+      '\n' +
+      '从长期来看，传统的EPD（工程、产品、设计）协作模式将会被重塑。正如《How Coding Agents Are Reshaping Engineering, Product and Design》一文中提出的两个新兴角色原型：builder（快速跨域构建者）与 reviewer（高强度、高标准的把关者）。专业人才不会消失，但未来需要的是更强的跨领域理解能力、沟通能力以及高效评审能力。在Anthropic，所有员工的职衔都是Member of Technical Staff，实际上他们的分工也确实模糊不清，每个人都可能撰写需求、做设计、写代码。在这种环境下，“产品sense”正在成为所有角色的底层必修能力。\n' +
+      '\n' +
+      '保持好奇，持续学习。\n' +
+      '\n' +
+      '## 参考资料\n' +
+      '\n' +
+      '- [Harness Engineering - Agent优先世界中的Codex工程实践](https://openai.com/index/harness-engineering/)\n' +
+      '- [How To Be A World-Class Agentic Engineer - Agentic工程实践原则](https://x.com/systematicls/status/2028814227004395561)\n' +
+      '- [Harness Engineering Is Cybernetics - 从控制论看Agent编程范式转变](https://x.com/odysseus0z/status/2030416758138634583)\n' +
+      '- [The Anatomy of an Agent Harness - Agent Harness工程解剖与设计框架](https://x.com/Vtrivedy10/status/2031408954517971368)\n' +
+      '- [Claude Code之父Boris Cherny深度访谈（YouTube原视频）](https://www.youtube.com/watch?v=julbw1JuAz0)\n' +
+      '- [Claude Code之父Boris Cherny深度访谈（InfoQ整理稿）](https://mp.weixin.qq.com/s/QupBxvNzKkacxqKsYWM_7w)\n' +
+      '- [Lessons from Building Claude Code - 构建Claude Code的Agent工具设计经验](https://x.com/trq212/status/2027463795355095314)\n' +
+      '- [How Coding Agents Are Reshaping Engineering Product and Design - Coding Agents重塑EPD协作范式](https://x.com/hwchase17/status/2031051115169808685)',
+  },
+  {
+    meta: {
       title: 'Hello World',
       date: '2026-03-11',
       summary: '第一篇用于验证 Markdown 发布链路的文章。',
