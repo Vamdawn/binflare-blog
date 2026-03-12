@@ -19,9 +19,8 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "baseUrl": ".",
     "paths": {
-      "@binflare-blog/shared": ["packages/shared/src"]
+      "@binflare-blog/shared": ["./packages/shared/src"]
     }
   },
   "exclude": ["node_modules", "dist", "build", ".git"]
