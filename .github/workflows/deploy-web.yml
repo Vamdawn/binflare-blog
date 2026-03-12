@@ -48,7 +48,10 @@ jobs:
         run: pnpm --filter web build
 
       - name: Pack dist
-        run: tar -czf web-dist.tgz -C apps/web/dist .
+        run: |
+          ls -la apps/web/dist/
+          tar -czf web-dist.tgz -C apps/web/dist .
+          ls -la web-dist.tgz
 
       - name: Generate release id
         run: echo "RELEASE_ID=$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}" >> "$GITHUB_ENV"
@@ -69,6 +72,7 @@ jobs:
           scp -P "$DEPLOY_PORT" scripts/deploy/promote-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/promote-release.sh"
           scp -P "$DEPLOY_PORT" scripts/deploy/prune-releases.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/prune-releases.sh"
           scp -P "$DEPLOY_PORT" scripts/deploy/rollback-release.sh "$DEPLOY_USER@$DEPLOY_HOST:$REMOTE_SCRIPT_DIR/rollback-release.sh"
+          ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" "ls -la \"$RELEASE_DIR/\""
 
       - name: Extract and promote release
         run: |
