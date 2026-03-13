@@ -15,7 +15,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
           文章列表
         </Link>
       </header>
-      <main>{children}</main>
+      <main className="site-main">{children}</main>
     </div>
   );
 }
