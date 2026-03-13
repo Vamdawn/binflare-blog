@@ -24,6 +24,10 @@ describe('App routes', () => {
     expect(banner.closest('.site-shell')).not.toBeNull();
     expect(banner.closest('.site-shell')).toBe(main.closest('.site-shell'));
     expect(screen.getByRole('link', { name: '文章列表' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '豫ICP备2026008070号' })).toHaveAttribute(
+      'href',
+      'https://beian.miit.gov.cn/',
+    );
     expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '404' })).not.toBeInTheDocument();
   });

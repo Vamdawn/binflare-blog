@@ -16,9 +16,16 @@ export function PostListPage() {
   return (
     <SiteLayout>
       <SeoHead title="文章列表 | Binflare Blog" description="Binflare Blog 全部文章列表" />
-      <section>
-        <h2>文章</h2>
-        <p>Binflare 的工程与产品实践</p>
+      <section className="home-hero">
+        <div className="home-hero-content">
+          <h2>文章</h2>
+          <p>Binflare 的工程与产品实践</p>
+        </div>
+        <div aria-hidden="true" className="home-hero-decor">
+          <i className="shape-dot" />
+          <i className="shape-block" />
+          <i className="shape-wave" />
+        </div>
       </section>
       <section aria-label="文章列表内容区">
         <div className="post-list">

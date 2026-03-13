@@ -1,28 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;700;800&family=Syne:wght@600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
-  --bg: #f8fafc;
+  --bg: #fff8ef;
   --surface: #ffffff;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --accent: #2563eb;
-  --accent-strong: #1d4ed8;
-  --focus-ring: #1d4ed8;
-  --shadow-soft: 0 12px 26px -18px rgb(15 23 42 / 0.45);
-  --code-inline-bg: #eef2ff;
-  --code-block-bg: #0f172a;
-  --code-block-border: #1e293b;
-  --code-block-text: #e2e8f0;
-  --blockquote-text: #334155;
+  --text: #111827;
+  --text-muted: #475569;
+  --border: #111827;
+  --border-soft: #d7cfc4;
+  --accent: #d9468f;
+  --accent-strong: #9d174d;
+  --accent-teal: #0f766e;
+  --accent-yellow: #f6c453;
+  --accent-blue: #2563eb;
+  --focus-ring: #0f766e;
+  --shadow-soft: 0 12px 0 rgb(17 24 39 / 0.1);
+  --code-inline-bg: #fff1c4;
+  --code-block-bg: #101828;
+  --code-block-border: #1f2937;
+  --code-block-text: #f8fafc;
+  --blockquote-text: #1f2937;
 
-  --font-display: "Newsreader", "Times New Roman", serif;
-  --font-body: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Syne", "Arial Black", sans-serif;
+  --font-body: "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 
   font-family: var(--font-body);
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -35,7 +40,9 @@
 }
 
 body {
-  background: radial-gradient(1800px 700px at 12% -10%, #e8eef8 0%, var(--bg) 50%, var(--bg) 100%);
+  background: radial-gradient(1000px 500px at 10% -20%, rgb(246 196 83 / 0.35) 0%, transparent 60%),
+    radial-gradient(850px 420px at 95% -10%, rgb(217 70 143 / 0.22) 0%, transparent 62%),
+    linear-gradient(180deg, #fffdf8 0%, var(--bg) 100%);
   color: var(--text);
   margin: 0;
 }
