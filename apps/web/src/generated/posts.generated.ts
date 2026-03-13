@@ -123,14 +123,4 @@ export const generatedPosts: Post[] = [
       '- [Lessons from Building Claude Code - 构建Claude Code的Agent工具设计经验](https://x.com/trq212/status/2027463795355095314)\n' +
       '- [How Coding Agents Are Reshaping Engineering Product and Design - Coding Agents重塑EPD协作范式](https://x.com/hwchase17/status/2031051115169808685)',
   },
-  {
-    meta: {
-      title: 'Hello World',
-      date: '2026-03-11',
-      summary: '第一篇用于验证 Markdown 发布链路的文章。',
-      draft: false,
-      slug: 'hello-world',
-    },
-    content: '这是一篇用于验证博客 MVP 内容加载流程的示例文章。',
-  },
 ];
