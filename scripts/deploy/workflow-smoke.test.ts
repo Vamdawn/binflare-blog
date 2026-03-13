@@ -32,10 +32,16 @@ describe('deploy-web workflow smoke', () => {
       'DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}',
       'DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}',
       'SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}',
+      'uses: actions/checkout@v6',
+      'uses: actions/setup-node@v6',
+      'corepack enable',
+      'corepack prepare pnpm@9.15.0 --activate',
     ];
 
     for (const snippet of requiredSnippets) {
       expect(yaml).toContain(snippet);
     }
+
+    expect(yaml).not.toContain('uses: pnpm/action-setup@');
   });
 });
