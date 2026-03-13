@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from './App';
+import { getPostBySlug } from './lib/posts/source';
 
 afterEach(() => {
   cleanup();
@@ -15,12 +16,23 @@ describe('App routes', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('banner')).toBeInTheDocument();
+    const banner = screen.getByRole('banner');
+    const main = screen.getByRole('main');
+
+    expect(banner).toBeInTheDocument();
+    expect(main).toBeInTheDocument();
+    expect(banner.closest('.site-shell')).not.toBeNull();
+    expect(banner.closest('.site-shell')).toBe(main.closest('.site-shell'));
     expect(screen.getByRole('link', { name: '文章列表' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
   });
 
   it('renders post detail page for existing slug', () => {
+    const post = getPostBySlug('hello-world');
+    if (!post) {
+      throw new Error('Expected hello-world post to exist in test data');
+    }
+
     render(
       <MemoryRouter initialEntries={['/posts/hello-world']}>
         <App />
@@ -28,7 +40,7 @@ describe('App routes', () => {
     );
 
     expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: post.meta.title })).toBeInTheDocument();
     const backLink = screen.getByRole('link', { name: '返回文章列表' });
     expect(backLink).toBeInTheDocument();
     expect(backLink).toHaveAttribute('href', '/');
