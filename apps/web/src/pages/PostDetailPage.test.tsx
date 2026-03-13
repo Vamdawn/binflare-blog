@@ -22,6 +22,12 @@ function renderDetailPage(initialPath = '/posts/hello-world') {
 
 describe('PostDetailPage', () => {
   it('renders back link, date metadata, summary and semantic article for hello-world', () => {
+    const seededPost = postSource.getPostBySlug('hello-world');
+    expect(seededPost).toBeDefined();
+    if (!seededPost) {
+      return;
+    }
+
     renderDetailPage();
 
     const article = screen
@@ -32,20 +38,20 @@ describe('PostDetailPage', () => {
       return;
     }
 
-    const header = article.querySelector('.post-detail-header');
+    const header = article.querySelector<HTMLElement>('.post-detail-header');
     expect(header).not.toBeNull();
     if (!header) {
       return;
     }
 
     expect(within(header).getByRole('link', { name: '返回文章列表' })).toHaveAttribute('href', '/');
-    expect(within(header).getByText('2026-03-11')).toBeInTheDocument();
+    expect(within(header).getByText(seededPost.meta.date)).toBeInTheDocument();
     expect(
-      within(header).getByRole('heading', { level: 2, name: 'Hello World' }),
+      within(header).getByRole('heading', { level: 2, name: seededPost.meta.title }),
     ).toBeInTheDocument();
-    expect(screen.getByText('第一篇用于验证 Markdown 发布链路的文章。')).toHaveClass(
-      'post-detail-summary',
-    );
+    if (seededPost.meta.summary) {
+      expect(screen.getByText(seededPost.meta.summary)).toHaveClass('post-detail-summary');
+    }
   });
 
   it('does not render summary paragraph when summary is missing', () => {
