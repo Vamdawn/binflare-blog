@@ -15,6 +15,8 @@ describe('App routes', () => {
       </MemoryRouter>,
     );
 
+    const siteHeader = document.querySelector('header.site-header');
+    expect(siteHeader).toHaveAttribute('role', 'banner');
     expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
   });
 
