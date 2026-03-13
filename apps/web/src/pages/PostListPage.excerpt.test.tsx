@@ -16,17 +16,13 @@ vi.mock('../lib/posts/source', () => ({
   ],
 }));
 
-import { PostListPage, excerptFromContent } from './PostListPage';
+import { PostListPage } from './PostListPage';
 
 afterEach(() => {
   cleanup();
 });
 
 describe('PostListPage excerpt fallback', () => {
-  it('builds excerpt from content as first 120 chars plus ellipsis', () => {
-    expect(excerptFromContent('a'.repeat(200))).toBe(`${'a'.repeat(120)}...`);
-  });
-
   it('renders excerpt fallback when summary is missing', () => {
     render(
       <MemoryRouter>

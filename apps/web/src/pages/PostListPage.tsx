@@ -5,7 +5,7 @@ import { getPosts } from '../lib/posts/source';
 
 const EXCERPT_LENGTH = 120;
 
-export const excerptFromContent = (content: string): string => {
+const excerptFromContent = (content: string): string => {
   const plain = content.replace(/\s+/g, ' ').trim();
   return plain.length <= EXCERPT_LENGTH ? plain : `${plain.slice(0, EXCERPT_LENGTH)}...`;
 };
