@@ -3,9 +3,11 @@ import { SeoHead } from '../components/SeoHead';
 import { SiteLayout } from '../components/SiteLayout';
 import { getPosts } from '../lib/posts/source';
 
-const excerptFromContent = (content: string): string => {
+const EXCERPT_LENGTH = 120;
+
+export const excerptFromContent = (content: string): string => {
   const plain = content.replace(/\s+/g, ' ').trim();
-  return plain.length <= 120 ? plain : `${plain.slice(0, 120)}...`;
+  return plain.length <= EXCERPT_LENGTH ? plain : `${plain.slice(0, EXCERPT_LENGTH)}...`;
 };
 
 export function PostListPage() {

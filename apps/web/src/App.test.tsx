@@ -25,6 +25,7 @@ describe('App routes', () => {
     expect(banner.closest('.site-shell')).toBe(main.closest('.site-shell'));
     expect(screen.getByRole('link', { name: '文章列表' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '404' })).not.toBeInTheDocument();
   });
 
   it('renders post detail page for existing slug', () => {
@@ -44,6 +45,7 @@ describe('App routes', () => {
     const backLink = screen.getByRole('link', { name: '返回文章列表' });
     expect(backLink).toBeInTheDocument();
     expect(backLink).toHaveAttribute('href', '/');
+    expect(screen.queryByRole('heading', { name: '404' })).not.toBeInTheDocument();
   });
 
   it('renders 404 UI for unknown slug', async () => {
@@ -54,5 +56,18 @@ describe('App routes', () => {
     );
 
     expect(await screen.findByRole('heading', { name: '404' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '返回首页' })).toHaveAttribute('href', '/');
+    expect(screen.getByText('未找到该文章或页面。')).toBeInTheDocument();
+  });
+
+  it('renders 404 UI for unknown route', async () => {
+    render(
+      <MemoryRouter initialEntries={['/unknown-route']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByRole('heading', { name: '404' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '返回首页' })).toHaveAttribute('href', '/');
   });
 });
