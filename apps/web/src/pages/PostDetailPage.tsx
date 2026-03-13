@@ -21,16 +21,17 @@ export function PostDetailPage() {
         title={`${post.meta.title} | Binflare Blog`}
         description={post.meta.summary ?? `${post.meta.title} - Binflare Blog`}
       />
-      <article>
-        <h2 className="post-detail-title">{post.meta.title}</h2>
-        <p className="post-detail-date">{post.meta.date}</p>
+      <article className="post-detail">
+        <header className="post-detail-header">
+          <Link className="site-link" to="/">
+            返回文章列表
+          </Link>
+          <p className="post-detail-date">{post.meta.date}</p>
+          <h2 className="post-detail-title">{post.meta.title}</h2>
+        </header>
+        {post.meta.summary ? <p className="post-detail-summary">{post.meta.summary}</p> : null}
         <MarkdownRenderer content={post.content} />
       </article>
-      <p>
-        <Link className="site-link" to="/">
-          返回文章列表
-        </Link>
-      </p>
     </SiteLayout>
   );
 }

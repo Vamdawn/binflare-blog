@@ -26,6 +26,9 @@ describe('App routes', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Hello World' })).toBeInTheDocument();
+    const backLink = screen.getByRole('link', { name: '返回文章列表' });
+    expect(backLink).toBeInTheDocument();
+    expect(backLink).toHaveAttribute('href', '/');
   });
 
   it('redirects unknown slug to 404 page', async () => {
