@@ -9,8 +9,13 @@
   --border: #e2e8f0;
   --accent: #2563eb;
   --accent-strong: #1d4ed8;
-  --focus-ring: #93c5fd;
+  --focus-ring: #1d4ed8;
   --shadow-soft: 0 12px 26px -18px rgb(15 23 42 / 0.45);
+  --code-inline-bg: #eef2ff;
+  --code-block-bg: #0f172a;
+  --code-block-border: #1e293b;
+  --code-block-text: #e2e8f0;
+  --blockquote-text: #334155;
 
   --font-display: "Newsreader", "Times New Roman", serif;
   --font-body: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
