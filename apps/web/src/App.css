@@ -68,6 +68,22 @@
   margin: 0;
 }
 
+.post-card-actions {
+  margin-top: 0.7rem;
+}
+
+.post-card-actions a {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-card-actions a:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
 .post-detail-title {
   color: #111827;
   font-size: 2rem;

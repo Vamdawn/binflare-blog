@@ -15,6 +15,9 @@ export function PostCard({ slug, title, date, summary }: PostCardProps) {
       </h2>
       <p className="post-card-date">{date}</p>
       <p className="post-card-summary">{summary}</p>
+      <div className="post-card-actions">
+        <Link to={`/posts/${slug}`}>阅读全文</Link>
+      </div>
     </article>
   );
 }
