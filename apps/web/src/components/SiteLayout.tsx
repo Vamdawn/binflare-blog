@@ -8,15 +8,14 @@ type SiteLayoutProps = {
 
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <main className="site-shell">
-      {/* biome-ignore lint/a11y/noInteractiveElementToNoninteractiveRole: explicit banner landmark required by accessibility test */}
-      <header className="site-header" role="banner">
+    <>
+      <header className="site-header">
         <h1 className="site-title">Binflare Blog</h1>
         <Link className="site-link" to="/">
           文章列表
         </Link>
       </header>
-      {children}
-    </main>
+      <main className="site-shell">{children}</main>
+    </>
   );
 }
