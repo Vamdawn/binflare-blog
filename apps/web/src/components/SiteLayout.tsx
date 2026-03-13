@@ -8,14 +8,14 @@ type SiteLayoutProps = {
 
 export function SiteLayout({ children }: SiteLayoutProps) {
   return (
-    <>
+    <div className="site-shell">
       <header className="site-header">
         <h1 className="site-title">Binflare Blog</h1>
         <Link className="site-link" to="/">
           文章列表
         </Link>
       </header>
-      <main className="site-shell">{children}</main>
-    </>
+      <main>{children}</main>
+    </div>
   );
 }
