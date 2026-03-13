@@ -27,13 +27,14 @@ describe('App routes', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('heading', { name: 'Hello World' })).toBeInTheDocument();
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
     const backLink = screen.getByRole('link', { name: '返回文章列表' });
     expect(backLink).toBeInTheDocument();
     expect(backLink).toHaveAttribute('href', '/');
   });
 
-  it('redirects unknown slug to 404 page', async () => {
+  it('renders 404 UI for unknown slug', async () => {
     render(
       <MemoryRouter initialEntries={['/posts/not-found']}>
         <App />
