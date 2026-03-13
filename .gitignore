@@ -1,3 +1,8 @@
+# Agent
+skills-lock.json
+.claude
+.agents
+
 # Dependencies
 node_modules/
 .pnp
