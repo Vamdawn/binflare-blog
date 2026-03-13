@@ -8,15 +8,17 @@ type PostCardProps = {
 };
 
 export function PostCard({ slug, title, date, summary }: PostCardProps) {
+  const postHref = `/posts/${slug}`;
+
   return (
     <article className="post-card">
       <h2 className="post-card-title">
-        <Link to={`/posts/${slug}`}>{title}</Link>
+        <Link to={postHref}>{title}</Link>
       </h2>
       <p className="post-card-date">{date}</p>
       <p className="post-card-summary">{summary}</p>
       <div className="post-card-actions">
-        <Link to={`/posts/${slug}`}>阅读全文</Link>
+        <Link to={postHref}>阅读全文</Link>
       </div>
     </article>
   );

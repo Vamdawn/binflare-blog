@@ -73,14 +73,14 @@
 }
 
 .post-card-actions a {
-  color: var(--accent);
+  color: var(--accent, #2563eb);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
 }
 
 .post-card-actions a:hover {
-  color: var(--accent-strong);
+  color: var(--accent-strong, #1d4ed8);
   text-decoration: underline;
 }
 

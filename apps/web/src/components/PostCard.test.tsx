@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 import { PostCard } from './PostCard';
@@ -14,7 +14,7 @@ describe('PostCard', () => {
     const date = '2026-03-13';
     const summary = '这是一段摘要';
 
-    render(
+    const { container } = render(
       <MemoryRouter>
         <PostCard slug={slug} title={title} date={date} summary={summary} />
       </MemoryRouter>,
@@ -25,7 +25,10 @@ describe('PostCard', () => {
     expect(screen.getByText(date)).toBeInTheDocument();
     expect(screen.getByText(summary)).toBeInTheDocument();
 
-    const readMoreLink = screen.getByRole('link', { name: '阅读全文' });
+    const actions = container.querySelector('.post-card-actions');
+    expect(actions).toBeInTheDocument();
+
+    const readMoreLink = within(actions as HTMLElement).getByRole('link', { name: '阅读全文' });
     expect(readMoreLink).toHaveAttribute('href', `/posts/${slug}`);
   });
 });
