@@ -118,8 +118,7 @@ export const generatedPosts: Post[] = [
       '- [How To Be A World-Class Agentic Engineer - Agentic工程实践原则](https://x.com/systematicls/status/2028814227004395561)\n' +
       '- [Harness Engineering Is Cybernetics - 从控制论看Agent编程范式转变](https://x.com/odysseus0z/status/2030416758138634583)\n' +
       '- [The Anatomy of an Agent Harness - Agent Harness工程解剖与设计框架](https://x.com/Vtrivedy10/status/2031408954517971368)\n' +
-      '- [Claude Code之父Boris Cherny深度访谈（YouTube原视频）](https://www.youtube.com/watch?v=julbw1JuAz0)\n' +
-      '- [Claude Code之父Boris Cherny深度访谈（InfoQ整理稿）](https://mp.weixin.qq.com/s/QupBxvNzKkacxqKsYWM_7w)\n' +
+      '- [Claude Code之父Boris Cherny深度访谈](https://mp.weixin.qq.com/s/QupBxvNzKkacxqKsYWM_7w)\n' +
       '- [Lessons from Building Claude Code - 构建Claude Code的Agent工具设计经验](https://x.com/trq212/status/2027463795355095314)\n' +
       '- [How Coding Agents Are Reshaping Engineering Product and Design - Coding Agents重塑EPD协作范式](https://x.com/hwchase17/status/2031051115169808685)',
   },
