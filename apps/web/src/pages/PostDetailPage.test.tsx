@@ -10,7 +10,7 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-function renderDetailPage(initialPath = '/posts/hello-world') {
+function renderDetailPage(initialPath = '/posts/sample') {
   render(
     <MemoryRouter initialEntries={[initialPath]}>
       <Routes>
@@ -21,14 +21,14 @@ function renderDetailPage(initialPath = '/posts/hello-world') {
 }
 
 describe('PostDetailPage', () => {
-  it('renders back link, date metadata, summary and semantic article for hello-world', () => {
-    const seededPost = postSource.getPostBySlug('hello-world');
+  it('renders back link, date metadata, summary and semantic article for seeded post', () => {
+    const seededPost = postSource.getPosts()[0];
     expect(seededPost).toBeDefined();
     if (!seededPost) {
       return;
     }
 
-    renderDetailPage();
+    renderDetailPage(`/posts/${seededPost.meta.slug}`);
 
     const article = screen
       .getAllByRole('article')

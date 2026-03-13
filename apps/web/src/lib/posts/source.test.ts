@@ -11,10 +11,12 @@ describe('runtime source', () => {
 
   it('loads seeded post and supports lookup by slug', () => {
     const posts = getPosts();
-    const target = getPostBySlug('hello-world');
+    const firstPost = posts[0];
+    const target = firstPost ? getPostBySlug(firstPost.meta.slug) : undefined;
 
     expect(posts.length).toBeGreaterThan(0);
+    expect(firstPost).toBeDefined();
     expect(target).toBeDefined();
-    expect(target?.meta.title).toBe('Hello World');
+    expect(target?.meta.title).toBe(firstPost?.meta.title);
   });
 });

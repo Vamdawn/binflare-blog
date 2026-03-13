@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from './App';
-import { getPostBySlug } from './lib/posts/source';
+import { getPosts } from './lib/posts/source';
 
 afterEach(() => {
   cleanup();
@@ -29,13 +29,13 @@ describe('App routes', () => {
   });
 
   it('renders post detail page for existing slug', () => {
-    const post = getPostBySlug('hello-world');
+    const post = getPosts()[0];
     if (!post) {
-      throw new Error('Expected hello-world post to exist in test data');
+      throw new Error('Expected at least one seeded post to exist in test data');
     }
 
     render(
-      <MemoryRouter initialEntries={['/posts/hello-world']}>
+      <MemoryRouter initialEntries={[`/posts/${post.meta.slug}`]}>
         <App />
       </MemoryRouter>,
     );
