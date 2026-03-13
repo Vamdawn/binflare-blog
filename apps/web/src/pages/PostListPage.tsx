@@ -15,7 +15,10 @@ export function PostListPage() {
     <SiteLayout>
       <SeoHead title="文章列表 | Binflare Blog" description="Binflare Blog 全部文章列表" />
       <section>
-        <h2>文章列表</h2>
+        <h2>文章</h2>
+        <p>Binflare 的工程与产品实践</p>
+      </section>
+      <section aria-label="文章列表内容区">
         <div className="post-list">
           {posts.map((post) => (
             <PostCard

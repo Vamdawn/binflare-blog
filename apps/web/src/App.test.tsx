@@ -15,7 +15,7 @@ describe('App routes', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('heading', { name: '文章列表' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
   });
 
   it('renders post detail page for existing slug', () => {
