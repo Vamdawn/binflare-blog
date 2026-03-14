@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d9468f"/>
+      <stop offset="100%" stop-color="#9d174d"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6c453"/>
+      <stop offset="100%" stop-color="#fff8ef"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded background -->
+  <rect x="10" y="10" width="160" height="160" rx="32" fill="url(#bgGrad)"/>
+
+  <!-- Letter B -->
+  <text
+    x="90"
+    y="130"
+    font-family="Georgia, serif"
+    font-size="110"
+    font-weight="700"
+    text-anchor="middle"
+    fill="url(#textGrad)"
+  >B</text>
+</svg>
