@@ -28,6 +28,10 @@ describe('App routes', () => {
       'href',
       'https://beian.miit.gov.cn/',
     );
+    expect(screen.getByRole('link', { name: /沪公网安备31011502405432号/ })).toHaveAttribute(
+      'href',
+      'https://beian.mps.gov.cn/#/query/webSearch?code=31011502405432',
+    );
     expect(screen.getByRole('heading', { name: '文章' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '404' })).not.toBeInTheDocument();
   });

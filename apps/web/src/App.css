@@ -28,9 +28,23 @@
 .site-footer {
   border-top: 2px solid var(--border);
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
   justify-content: center;
   margin-top: 2rem;
   padding-top: 1rem;
+}
+
+.site-footer-link--mps {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.site-footer-badge {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
 }
 
 .site-footer-link {
